@@ -11,15 +11,17 @@ public enum Day {
 }
 public class GameManager : MonoBehaviour
 {
-    public static Transform playerRespawn;
     public static Day currentDay = Day.day1;
     public static int neededToKillCounter;
     public static Vector2 cameraBounds = new Vector3(40, 32);
     public static Vector2 cameraCoords = new Vector3(1, 0); // changed in cameraCoords
     public static Pool pool_LoudAudioSource;
     public static Pool pool_flamethrowerBullets;
+    public static Transform playerRespawn;
     public static Transform playerTrans;
+    public static Transform playerGun;
     public static Transform cameraDolly;
+    public static AudioSource music;
 
     public static UnityEvent playerReviveEvent = new UnityEvent();
     public static UnityEvent changeDayEvent = new UnityEvent();
@@ -32,13 +34,16 @@ public class GameManager : MonoBehaviour
 
         pool_LoudAudioSource = transform.Find("Pool_LoudAudioSource").GetComponent<Pool>();
         pool_flamethrowerBullets = transform.Find("Pool_FlamethrowerBullets").GetComponent<Pool>();
-        playerTrans = GameObject.Find("Player").transform;
-        cameraDolly = GameObject.Find("CameraDolly").transform;
         playerRespawn = GameObject.Find("PlayerRespawn").transform;
+        playerTrans = GameObject.Find("Player").transform;
+        playerGun = GameObject.Find("Player/Gun").transform;
+        cameraDolly = GameObject.Find("CameraDolly").transform;
+        music = transform.Find("Music").GetComponent<AudioSource>();
 
-        Time.timeScale = 0f;
     }
     private void Start() {
+        Time.timeScale = 0f;
+        playerGun.gameObject.SetActive(false);
         ChangeRoom();
         ChangeDay(1);
     }
@@ -49,6 +54,12 @@ public class GameManager : MonoBehaviour
     }
     public static void ResumeGame() {
         Time.timeScale = 1f;
+        if(music.isPlaying == false) {
+            music.PlayWebGL();
+        }
+    }
+    public static void PickupFlamethrower() {
+        playerGun.gameObject.SetActive(true);
     }
     public static void ChangeRoom() {
         playerRespawn.position = playerTrans.position;
