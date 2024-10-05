@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityHealth : MonoBehaviour
-{
+public class EntityHealth : MonoBehaviour {
+    public List<AudioClip> clipDeath;
     public int defaultHealth = 3;
+    public GameObject deadBody;
 
     private Vector3 originPosition;
     private Vector2 originCamCoords;
@@ -21,6 +22,18 @@ public class EntityHealth : MonoBehaviour
         GameManager.playerChangeRoom.AddListener(ChangeRoom);
         GameManager.playerChangeRoom.AddListener(EnableIfInCameraCoords);
     }
+    public void AddDamage(int damage=1) {
+        currentHealth -= damage;
+        if(currentHealth <= 0) {
+
+            GameObject deadbody = GameObject.Instantiate(deadBody, transform.position, Quaternion.identity);
+            deadbody.GetComponent<AudioSource>().clip = clipDeath[Random.Range(0, clipDeath.Count)];
+            deadbody.GetComponent<AudioSource>().PlayWebGL();
+            // hack: deadbody inherets sprite direction from this object
+            deadbody.transform.Find("Sprite").GetComponent<SpriteRenderer>().flipX = GetComponent<SmallAntController>().mySpriteRenderer.flipX;
+            gameObject.SetActive(false);
+        }
+    }
     private void ChangeRoom() {
         if (currentHealth <= 0) {
             return;
@@ -31,7 +44,7 @@ public class EntityHealth : MonoBehaviour
         currentHealth = defaultHealth;
     }
     public void EnableIfInCameraCoords() {
-        if (originCamCoords == GameManager.cameraCoords) {
+        if (originCamCoords == GameManager.cameraCoords && currentHealth >= 1) {
             gameObject.SetActive(true);
         } else {
             gameObject.SetActive(false);

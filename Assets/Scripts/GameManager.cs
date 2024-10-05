@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static Vector2 cameraBounds = new Vector3(40, 32);
     public static Vector2 cameraCoords = new Vector3(0, 0); // changed in cameraCoords
     public static Pool pool_LoudAudioSource;
+    public static Pool pool_flamethrowerBullets;
     public static Transform playerTrans;
     public static Transform cameraDolly;
 
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
 
         pool_LoudAudioSource = transform.Find("Pool_LoudAudioSource").GetComponent<Pool>();
+        pool_flamethrowerBullets = transform.Find("Pool_FlamethrowerBullets").GetComponent<Pool>();
         playerTrans = GameObject.Find("Player").transform;
         cameraDolly = GameObject.Find("CameraDolly").transform;
     }

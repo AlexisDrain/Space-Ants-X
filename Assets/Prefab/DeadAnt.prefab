@@ -9,14 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2090539083877753016}
-  - component: {fileID: 3308751338827402894}
-  - component: {fileID: 7876997492605277454}
-  - component: {fileID: 1110182341986187405}
-  - component: {fileID: 7757714848042376329}
-  - component: {fileID: 5923561344422549848}
-  - component: {fileID: 6367684624138144576}
+  - component: {fileID: 8157739223905658007}
   m_Layer: 9
-  m_Name: Ant
+  m_Name: DeadAnt
   m_TagString: Ant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,110 +33,7 @@ Transform:
   - {fileID: 4272806059379446804}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &3308751338827402894
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863489946106110453}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 13
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 116
-  m_CollisionDetection: 1
---- !u!114 &7876997492605277454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863489946106110453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26daa46dc6f56144a81e760248ffbadb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultMoveForce: 40
-  maxRandomMoveForce: 150
-  defaultChangeDirectionTimer: 1
-  maxRandomChangeDirectionTimer: 3
-  currentChangeDirectionTimer: 1
-  currentMoveForce: 0
-  currentDirection: {x: 0, y: 0, z: 0}
-  mySpriteRenderer: {fileID: 2541676374622231704}
---- !u!65 &1110182341986187405
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863489946106110453}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.62}
-  m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &7757714848042376329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863489946106110453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9394a896e1b57244b2b67c60ecbab22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clipDeath:
-  - {fileID: 8300000, guid: 0e10451c62e673c4c989ccec89b1b21f, type: 3}
-  - {fileID: 8300000, guid: 5ea454d42f4cfa243911d78f8f567ab1, type: 3}
-  - {fileID: 8300000, guid: 26ad520f5ab1cee448ffa36c342db016, type: 3}
-  - {fileID: 8300000, guid: 28375063993022046b766d0def03d014, type: 3}
-  - {fileID: 8300000, guid: b880f9ba677c2da419d5372e44a66983, type: 3}
-  - {fileID: 8300000, guid: 1deace5fb9206b24a88cb9423e736346, type: 3}
-  - {fileID: 8300000, guid: 71ac88d8f5917fb44b44bcc12276f477, type: 3}
-  - {fileID: 8300000, guid: 01574a6071bdb7a479982658279e654d, type: 3}
-  defaultHealth: 2
-  deadBody: {fileID: 863489946106110453, guid: 37465367fb1d21b41b30564d1272973d, type: 3}
---- !u!114 &5923561344422549848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863489946106110453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f27e3b716f44424ab29e51d880da2cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!82 &6367684624138144576
+--- !u!82 &8157739223905658007
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,7 +89,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.696
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -310,7 +202,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1373770838, guid: 765b0a82b82f3f744bff34029be659ae, type: 3}
+  m_Sprite: {fileID: 1874108399, guid: 765b0a82b82f3f744bff34029be659ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
