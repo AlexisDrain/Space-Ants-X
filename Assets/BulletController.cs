@@ -35,7 +35,10 @@ public class BulletController : MonoBehaviour
     public void OnTriggerEnter(Collider other) {
         if(other.CompareTag("Ant")) {
             other.GetComponent<EntityHealth>().AddDamage(1);
+        } else {
+            // any object other than ants will remove bullet. That means, ants do not deactivate bullets.
+            gameObject.SetActive(false);
+
         }
-        gameObject.SetActive(false);
     }
 }
