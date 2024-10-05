@@ -9,7 +9,7 @@ public class KillCountDisplay : MonoBehaviour
     
     void Start()
     {
-        GameManager.changeKillCount.AddListener(UpdateNum);
+        GameManager.changeKillCountEvent.AddListener(UpdateNum);
         UpdateNum();
         StartCoroutine("DelayDisplayNum");
     }

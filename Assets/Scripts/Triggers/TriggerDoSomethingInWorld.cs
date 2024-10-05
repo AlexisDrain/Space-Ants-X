@@ -18,7 +18,7 @@ public class TriggerDoSomethingInWorld : MonoBehaviour {
     void Start() {
         ResetTrigger();
         if (resetWithPlayer) {
-            GameManager.playerRevive.AddListener(ResetTrigger);
+            GameManager.playerReviveEvent.AddListener(ResetTrigger);
         }
         if(ignorePlayer) {
             Physics.IgnoreCollision(GetComponent<Collider>(), GameManager.playerTrans.GetComponent<Collider>(), true);

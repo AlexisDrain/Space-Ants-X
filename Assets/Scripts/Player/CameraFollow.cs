@@ -32,7 +32,7 @@ public class CameraFollow : MonoBehaviour
             
             GameManager.cameraCoords = _playerCoords;
 
-            GameManager.playerChangeRoom.Invoke();
+            GameManager.ChangeRoom();
         }
 
     }

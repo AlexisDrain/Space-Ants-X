@@ -20,7 +20,7 @@ public class TriggerWait : MonoBehaviour {
             StartCoroutine("Countdown");
         }
         if (resetWithPlayer) {
-            GameManager.playerRevive.AddListener(ResetTrigger);
+            GameManager.playerReviveEvent.AddListener(ResetTrigger);
         }
     }
     public void StartCoroutine() {

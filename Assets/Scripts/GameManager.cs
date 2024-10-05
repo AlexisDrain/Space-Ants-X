@@ -10,7 +10,7 @@ public enum Day {
 }
 public class GameManager : MonoBehaviour
 {
-
+    public static Transform playerRespawn;
     public static Day currentDay = Day.day1;
     public static int neededToKillCounter;
     public static Vector2 cameraBounds = new Vector3(40, 32);
@@ -20,9 +20,9 @@ public class GameManager : MonoBehaviour
     public static Transform playerTrans;
     public static Transform cameraDolly;
 
-    public static UnityEvent playerRevive = new UnityEvent();
-    public static UnityEvent playerChangeRoom = new UnityEvent();
-    public static UnityEvent changeKillCount = new UnityEvent();
+    public static UnityEvent playerReviveEvent = new UnityEvent();
+    public static UnityEvent playerChangeRoomEvent = new UnityEvent();
+    public static UnityEvent changeKillCountEvent = new UnityEvent();
 
     void Awake()
     {
@@ -32,14 +32,27 @@ public class GameManager : MonoBehaviour
         pool_flamethrowerBullets = transform.Find("Pool_FlamethrowerBullets").GetComponent<Pool>();
         playerTrans = GameObject.Find("Player").transform;
         cameraDolly = GameObject.Find("CameraDolly").transform;
+        playerRespawn = GameObject.Find("PlayerRespawn").transform;
+
+        ChangeRoom();
+    }
+    public void Update() {
+        if (Input.GetButtonDown("Respawn")) {
+            RevivePlayer();
+        }
+    }
+    public static void ChangeRoom() {
+        playerRespawn.position = playerTrans.position;
+        playerChangeRoomEvent.Invoke();
     }
     public static void RevivePlayer() {
         print("revive player");
-        playerRevive.Invoke();
+        playerTrans.position = playerRespawn.position;
+        playerReviveEvent.Invoke();
     }
     public static void UpdateKillCount(int newValue) {
         neededToKillCounter += newValue;
-        changeKillCount.Invoke();
+        changeKillCountEvent.Invoke();
     }
     public static Vector3 GetMousePositionOnFloor() {
         // Create a ray from the mouse position

@@ -23,8 +23,8 @@ public class EntityHealth : MonoBehaviour {
         originCamCoords = new Vector2(Mathf.FloorToInt(originCamCoords.x), Mathf.FloorToInt(originCamCoords.y));
 
         originPosition = transform.position;
-        GameManager.playerChangeRoom.AddListener(ChangeRoom);
-        GameManager.playerChangeRoom.AddListener(EnableIfInCameraCoords);
+        GameManager.playerChangeRoomEvent.AddListener(ChangeRoom);
+        GameManager.playerChangeRoomEvent.AddListener(EnableIfInCameraCoords);
     }
     public void AddDamage(int damage=1) {
         currentHealth -= damage;
