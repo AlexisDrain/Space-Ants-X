@@ -5,10 +5,14 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
+    public static Vector2 cameraBounds = new Vector3(40, 32);
+    public static Vector2 cameraCoords = new Vector3(0, 0); // changed in cameraCoords
     public static Pool pool_LoudAudioSource;
     public static Transform playerTrans;
+    public static Transform cameraDolly;
 
-    public static UnityEvent playerRevive;
+    public static UnityEvent playerRevive = new UnityEvent();
+    public static UnityEvent playerChangeRoom = new UnityEvent();
 
     void Awake()
     {
@@ -16,6 +20,7 @@ public class GameManager : MonoBehaviour
 
         pool_LoudAudioSource = transform.Find("Pool_LoudAudioSource").GetComponent<Pool>();
         playerTrans = GameObject.Find("Player").transform;
+        cameraDolly = GameObject.Find("CameraDolly").transform;
     }
     public static void RevivePlayer() {
         print("revive player");
