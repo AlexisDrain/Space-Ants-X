@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public static Transform playerTrans;
     public static Transform playerGun;
     public static Transform cameraDolly;
+    public static Transform dayStartTransform;
     public static AudioSource music;
 
     public static UnityEvent playerReviveEvent = new UnityEvent();
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
         playerTrans = GameObject.Find("Player").transform;
         playerGun = GameObject.Find("Player/Gun").transform;
         cameraDolly = GameObject.Find("CameraDolly").transform;
+        dayStartTransform = GameObject.Find("World/RoomPilot/DayStartPosition").transform;
         music = transform.Find("Music").GetComponent<AudioSource>();
 
     }
@@ -50,6 +52,12 @@ public class GameManager : MonoBehaviour
     public void Update() {
         if (Input.GetButtonDown("Respawn")) {
             RevivePlayer();
+        }
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha2)) {
+            ChangeDay(2);
+        }
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha3)) {
+            ChangeDay(3);
         }
     }
     public static void ResumeGame() {
@@ -71,7 +79,9 @@ public class GameManager : MonoBehaviour
         playerReviveEvent.Invoke();
     }
     public static void ChangeDay(int newDay) {
-        if(newDay == 1) {
+        GameManager.playerTrans.GetComponent<Rigidbody>().position = dayStartTransform.position;
+        GameManager.playerTrans.position = dayStartTransform.position;
+        if (newDay == 1) {
             currentDay = Day.day1;
         } else if (newDay == 2) {
             currentDay = Day.day2;
