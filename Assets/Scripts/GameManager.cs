@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum Day {
+    day1,
+    day2,
+    day3
+}
 public class GameManager : MonoBehaviour
 {
+
+    public static Day currentDay = Day.day1;
+    public static int neededToKillCounter;
     public static Vector2 cameraBounds = new Vector3(40, 32);
     public static Vector2 cameraCoords = new Vector3(0, 0); // changed in cameraCoords
     public static Pool pool_LoudAudioSource;
@@ -14,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     public static UnityEvent playerRevive = new UnityEvent();
     public static UnityEvent playerChangeRoom = new UnityEvent();
+    public static UnityEvent changeKillCount = new UnityEvent();
 
     void Awake()
     {
@@ -27,6 +36,10 @@ public class GameManager : MonoBehaviour
     public static void RevivePlayer() {
         print("revive player");
         playerRevive.Invoke();
+    }
+    public static void UpdateKillCount(int newValue) {
+        neededToKillCounter += newValue;
+        changeKillCount.Invoke();
     }
     public static Vector3 GetMousePositionOnFloor() {
         // Create a ray from the mouse position

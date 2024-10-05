@@ -13,6 +13,10 @@ public class EntityHealth : MonoBehaviour {
 
     void Awake()
     {
+
+        // GameManager.UpdateKillCount(1);
+        GameManager.neededToKillCounter += 1;
+
         // save entity map coords
         originCamCoords = new Vector2(transform.position.x / GameManager.cameraBounds.x,
                                            transform.position.z / GameManager.cameraBounds.y);
@@ -25,7 +29,7 @@ public class EntityHealth : MonoBehaviour {
     public void AddDamage(int damage=1) {
         currentHealth -= damage;
         if(currentHealth <= 0) {
-
+            GameManager.UpdateKillCount(-1);
             GameObject deadbody = GameObject.Instantiate(deadBody, transform.position, Quaternion.identity);
             deadbody.GetComponent<AudioSource>().clip = clipDeath[Random.Range(0, clipDeath.Count)];
             deadbody.GetComponent<AudioSource>().PlayWebGL();
