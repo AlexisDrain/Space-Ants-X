@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 public enum Day {
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     public static Transform cameraDolly;
 
     public static UnityEvent playerReviveEvent = new UnityEvent();
+    public static UnityEvent changeDayEvent = new UnityEvent();
     public static UnityEvent playerChangeRoomEvent = new UnityEvent();
     public static UnityEvent changeKillCountEvent = new UnityEvent();
 
@@ -34,7 +36,10 @@ public class GameManager : MonoBehaviour
         cameraDolly = GameObject.Find("CameraDolly").transform;
         playerRespawn = GameObject.Find("PlayerRespawn").transform;
 
+    }
+    private void Start() {
         ChangeRoom();
+        ChangeDay(1);
     }
     public void Update() {
         if (Input.GetButtonDown("Respawn")) {
@@ -49,6 +54,16 @@ public class GameManager : MonoBehaviour
         print("revive player");
         playerTrans.position = playerRespawn.position;
         playerReviveEvent.Invoke();
+    }
+    public static void ChangeDay(int newDay) {
+        if(newDay == 1) {
+            currentDay = Day.day1;
+        } else if (newDay == 2) {
+            currentDay = Day.day2;
+        } else if (newDay == 3) {
+            currentDay = Day.day3;
+        }
+        changeDayEvent.Invoke();
     }
     public static void UpdateKillCount(int newValue) {
         neededToKillCounter += newValue;

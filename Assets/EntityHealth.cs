@@ -14,8 +14,6 @@ public class EntityHealth : MonoBehaviour {
     void Awake()
     {
 
-        // GameManager.UpdateKillCount(1);
-        GameManager.neededToKillCounter += 1;
 
         // save entity map coords
         originCamCoords = new Vector2(transform.position.x / GameManager.cameraBounds.x,
@@ -25,6 +23,10 @@ public class EntityHealth : MonoBehaviour {
         originPosition = transform.position;
         GameManager.playerChangeRoomEvent.AddListener(ChangeRoom);
         GameManager.playerChangeRoomEvent.AddListener(EnableIfInCameraCoords);
+    }
+    public void countAnt() {
+        // GameManager.UpdateKillCount(1);
+        GameManager.neededToKillCounter += 1;
     }
     public void AddDamage(int damage=1) {
         currentHealth -= damage;
