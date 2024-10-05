@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         cameraDolly = GameObject.Find("CameraDolly").transform;
         playerRespawn = GameObject.Find("PlayerRespawn").transform;
 
+        Time.timeScale = 0f;
     }
     private void Start() {
         ChangeRoom();
@@ -45,6 +46,9 @@ public class GameManager : MonoBehaviour
         if (Input.GetButtonDown("Respawn")) {
             RevivePlayer();
         }
+    }
+    public static void ResumeGame() {
+        Time.timeScale = 1f;
     }
     public static void ChangeRoom() {
         playerRespawn.position = playerTrans.position;
