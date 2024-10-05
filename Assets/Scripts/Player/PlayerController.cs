@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    public RuntimeAnimatorController lookDown;
+    public RuntimeAnimatorController lookUp;
+    public SpriteRenderer mySprite;
     public Transform gunTransform;
-
-    Rigidbody myRigidbody;
     public float moveForce;
+
+    private Rigidbody myRigidbody;
+    private Animator myAnimator;
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody>();
+        myAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -32,5 +36,18 @@ public class PlayerController : MonoBehaviour
         Vector3 flatDirection = new Vector3(direction.x, 1f, direction.z);
         gunTransform.position = GameManager.playerTrans.position + flatDirection;
         gunTransform.rotation = Quaternion.LookRotation(flatDirection);
+
+
+        if (mySprite.flipX == true && direction.x > 0) {
+            mySprite.flipX = false;
+        } else if (mySprite.flipX == false && direction.x < 0) {
+            mySprite.flipX = true;
+        }
+
+        if(myAnimator.runtimeAnimatorController == lookDown && flatDirection.z > 0) {
+            myAnimator.runtimeAnimatorController = lookUp;
+        } else if (myAnimator.runtimeAnimatorController == lookUp && flatDirection.z < 0) {
+            myAnimator.runtimeAnimatorController = lookDown;
+        }
     }
 }

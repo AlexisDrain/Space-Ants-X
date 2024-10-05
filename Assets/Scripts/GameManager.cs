@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public static Day currentDay = Day.day1;
     public static int neededToKillCounter;
     public static Vector2 cameraBounds = new Vector3(40, 32);
-    public static Vector2 cameraCoords = new Vector3(0, 0); // changed in cameraCoords
+    public static Vector2 cameraCoords = new Vector3(1, 0); // changed in cameraCoords
     public static Pool pool_LoudAudioSource;
     public static Pool pool_flamethrowerBullets;
     public static Transform playerTrans;

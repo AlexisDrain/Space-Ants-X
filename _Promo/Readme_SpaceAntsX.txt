@@ -33,3 +33,6 @@ TODO
 === SFX ===
 - Flamethrower:
 Sonniss 2018 - Game Audio Bundle\SoundMorph - STEAMPUNK WEAPONS\Steampunk Weapons - Firestorm Flamer - set_1.wav
+
+- Flamethrower Pickup:
+loy's gun bullet case in.wav https://freesound.org/people/martian/sounds/182261/
