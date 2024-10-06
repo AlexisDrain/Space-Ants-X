@@ -39,3 +39,12 @@ loy's gun bullet case in.wav https://freesound.org/people/martian/sounds/182261/
 
 - Computer dialogue (Internet Dialup SFX):  
 https://freesound.org/people/Jlew/sounds/16475/  
+
+
+=== Font ===
+- Bebas by Dharma Type
+https://www.dafont.com/bebas.font
+http://dharmatype.com
+
+- LiberationSans by Red Hat - OFL
+https://www.dafont.com/liberation-sans.font

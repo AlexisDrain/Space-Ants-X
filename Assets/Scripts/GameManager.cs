@@ -90,9 +90,11 @@ public class GameManager : MonoBehaviour
         }
     }
     public static void PickupFlamethrower() {
+        playerTrans.GetComponent<PlayerController>()._hasGun = true;
         playerGun.gameObject.SetActive(true);
     }
     public static void ChangeRoom() {
+        Cursor.visible = false;
         playerRespawn.position = playerTrans.position;
         playerChangeRoomEvent.Invoke();
     }
