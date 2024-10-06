@@ -11,13 +11,19 @@ public enum Day {
 }
 public class GameManager : MonoBehaviour
 {
+
     public bool cheats = true;
+    public static bool hasStartedGame = false;
+
     public static Day currentDay = Day.day1;
     public static int neededToKillCounter;
     public static Vector2 cameraBounds = new Vector3(40, 32);
     public static Vector2 cameraCoords = new Vector3(1, 0); // changed in cameraCoords
+
+    public static GameObject gameObjectManager;
     public static Pool pool_LoudAudioSource;
     public static Pool pool_flamethrowerBullets;
+    public static Pool pool_antDeadbodies;
     public static Transform playerRespawn;
     public static Transform playerTrans;
     public static Transform playerGun;
@@ -37,10 +43,10 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        Cursor.visible = false;
-
+        gameObjectManager = gameObject;
         pool_LoudAudioSource = transform.Find("Pool_LoudAudioSource").GetComponent<Pool>();
         pool_flamethrowerBullets = transform.Find("Pool_FlamethrowerBullets").GetComponent<Pool>();
+        pool_antDeadbodies = transform.Find("Pool_AntDeadbodies").GetComponent<Pool>();
         playerRespawn = GameObject.Find("PlayerRespawn").transform;
         playerTrans = GameObject.Find("Player").transform;
         playerGun = GameObject.Find("Player/Gun").transform;
@@ -57,8 +63,10 @@ public class GameManager : MonoBehaviour
         cutscene3.gameObject.SetActive(false);
     }
     private void Start() {
+        Cursor.visible = false;
         Time.timeScale = 0f;
         playerGun.gameObject.SetActive(false);
+        hasStartedGame = false;
     }
     public void Update() {
         if(cheats == true) {
@@ -75,8 +83,8 @@ public class GameManager : MonoBehaviour
     }
     public static void ResumeGame() {
         Time.timeScale = 1f;
-        if(music.isPlaying == false) {
-            music.PlayWebGL();
+        if(hasStartedGame == false) {
+            hasStartedGame = true;
             ChangeRoom();
             ChangeDay(1);
         }
@@ -93,12 +101,21 @@ public class GameManager : MonoBehaviour
         playerTrans.position = playerRespawn.position;
         playerReviveEvent.Invoke();
     }
+    public void StartCountdownMusic() {
+        StopCoroutine("CountdownPlayMusic");
+        StartCoroutine("CountdownPlayMusic");
+    }
+    private IEnumerator CountdownPlayMusic() {
+        yield return new WaitForSeconds(5f);
+        music.PlayWebGL();
+    }
     public static void ChangeDay(int newDay) {
         GameManager.playerTrans.GetComponent<Rigidbody>().position = dayStartTransform.position;
         GameManager.playerTrans.position = dayStartTransform.position;
         GameManager.playerTrans.GetComponent<PlayerController>().CannotMoveCutscene();
         playerRespawn.position = playerTrans.position;
         if (newDay == 1) {
+            gameObjectManager.GetComponent<GameManager>().StartCountdownMusic();
             currentDay = Day.day1;
             cutscene1.gameObject.SetActive(true);
         } else if (newDay == 2) {

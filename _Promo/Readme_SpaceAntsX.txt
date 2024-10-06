@@ -36,3 +36,6 @@ Sonniss 2018 - Game Audio Bundle\SoundMorph - STEAMPUNK WEAPONS\Steampunk Weapon
 
 - Flamethrower Pickup:
 loy's gun bullet case in.wav https://freesound.org/people/martian/sounds/182261/
+
+- Computer dialogue (Internet Dialup SFX):  
+https://freesound.org/people/Jlew/sounds/16475/  

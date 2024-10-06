@@ -5,7 +5,6 @@ using UnityEngine;
 public class EntityHealth : MonoBehaviour {
     public List<AudioClip> clipDeath;
     public int defaultHealth = 3;
-    public GameObject deadBody;
 
     private Vector3 originPosition;
     private Vector2 originCamCoords;
@@ -33,7 +32,7 @@ public class EntityHealth : MonoBehaviour {
         _currentHealth -= damage;
         if(_currentHealth <= 0) {
             GameManager.UpdateKillCount(-1);
-            GameObject deadbody = GameObject.Instantiate(deadBody, transform.position, Quaternion.identity);
+            GameObject deadbody = GameManager.pool_antDeadbodies.Spawn(transform.position); // GameObject.Instantiate(deadBody, transform.position, Quaternion.identity);
             deadbody.GetComponent<AudioSource>().clip = clipDeath[Random.Range(0, clipDeath.Count)];
             deadbody.GetComponent<AudioSource>().PlayWebGL();
             // hack: deadbody inherets sprite direction from this object
