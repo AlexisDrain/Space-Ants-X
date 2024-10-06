@@ -128,7 +128,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1deace5fb9206b24a88cb9423e736346, type: 3}
   - {fileID: 8300000, guid: 71ac88d8f5917fb44b44bcc12276f477, type: 3}
   - {fileID: 8300000, guid: 01574a6071bdb7a479982658279e654d, type: 3}
-  defaultHealth: 2
+  defaultHealth: 1
   deadBody: {fileID: 863489946106110453, guid: 37465367fb1d21b41b30564d1272973d, type: 3}
 --- !u!114 &5923561344422549848
 MonoBehaviour:

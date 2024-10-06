@@ -11,6 +11,7 @@ public enum Day {
 }
 public class GameManager : MonoBehaviour
 {
+    public bool cheats = true;
     public static Day currentDay = Day.day1;
     public static int neededToKillCounter;
     public static Vector2 cameraBounds = new Vector3(40, 32);
@@ -60,14 +61,16 @@ public class GameManager : MonoBehaviour
         playerGun.gameObject.SetActive(false);
     }
     public void Update() {
-        if (Input.GetButtonDown("Respawn")) {
-            RevivePlayer();
-        }
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha2)) {
-            ChangeDay(2);
-        }
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha3)) {
-            ChangeDay(3);
+        if(cheats == true) {
+            if (Input.GetButtonDown("Respawn")) {
+                RevivePlayer();
+            }
+            if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha2)) {
+                ChangeDay(2);
+            }
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha3)) {
+                ChangeDay(3);
+            }
         }
     }
     public static void ResumeGame() {
@@ -94,6 +97,7 @@ public class GameManager : MonoBehaviour
         GameManager.playerTrans.GetComponent<Rigidbody>().position = dayStartTransform.position;
         GameManager.playerTrans.position = dayStartTransform.position;
         GameManager.playerTrans.GetComponent<PlayerController>().CannotMoveCutscene();
+        playerRespawn.position = playerTrans.position;
         if (newDay == 1) {
             currentDay = Day.day1;
             cutscene1.gameObject.SetActive(true);
