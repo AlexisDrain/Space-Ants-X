@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TriggerTeleport : MonoBehaviour
 {
+    public AudioClip clipTeleport;
     public Transform teleportTo;
     // Start is called before the first frame update
     void Start()
@@ -14,6 +15,11 @@ public class TriggerTeleport : MonoBehaviour
     // Update is called once per frame
     void OnTriggerEnter(Collider otherCollider) {
         if (otherCollider.CompareTag("Player")) {
+
+            if(clipTeleport) {
+                GameManager.SpawnLoudAudio(clipTeleport);
+            }
+
             GameManager.playerTrans.position = teleportTo.position;
             GameManager.playerTrans.GetComponent<Rigidbody>().position = teleportTo.position;
             GameManager.playerTrans.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);

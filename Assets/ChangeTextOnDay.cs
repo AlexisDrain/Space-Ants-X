@@ -7,8 +7,11 @@ using TMPro;
 public class ChangeTextOnDay : MonoBehaviour
 {
     private TextMeshProUGUI myText;
+    [TextArea(2,2)]
     public string newTextDay1;
+    [TextArea(2, 2)]
     public string newTextDay2;
+    [TextArea(2, 2)]
     public string newTextDay3;
     void Start()
     {

@@ -40,8 +40,14 @@ loy's gun bullet case in.wav https://freesound.org/people/martian/sounds/182261/
 - Computer dialogue (Internet Dialup SFX):  
 https://freesound.org/people/Jlew/sounds/16475/  
 
+- Self-destruct alarm:
+Sonnis 2016 - Game Audio Bundle\SoundBits - Computer Sound FX 2.0\CSFX-2_Alarms_09.wav
+
 - Ant, player damage:
 BFXR https://www.bfxr.net/
+
+- Ladder climb:
+Sonniss 2015 - Game Audio Bundle\Timothy McHugh -  Barefoot on Metal\FOOTSTEP - Metal Plate Land Barefoot Male - 1.wav
 
 === Font ===
 - Bebas by Dharma Type

@@ -11,11 +11,10 @@ public enum Day {
 }
 public class GameManager : MonoBehaviour
 {
-
     public bool cheats = true;
     public static bool hasStartedGame = false;
     public static bool playerIsDead = false;
-    public static float currentSelfDestructionTimer = 130f;
+    public static float currentSelfDestructionTimer = 140f;
 
     public static Day currentDay = Day.day1;
     public static int neededToKillCounter;
@@ -34,8 +33,11 @@ public class GameManager : MonoBehaviour
     public static Transform cameraDolly;
     public static Transform dayStartTransform;
     public static Transform sleepPodForPlayer;
-    public static AudioSource music;
+    public static AudioSource music1;
+    public static AudioSource music2;
+    public static AudioSource music3;
     public static AudioSource tiktokSound;
+    public static Transform alarmImage;
     public static Transform cutscene1;
     public static Transform cutscene2;
     public static Transform cutscene3;
@@ -60,8 +62,12 @@ public class GameManager : MonoBehaviour
         cameraDolly = GameObject.Find("CameraDolly").transform;
         dayStartTransform = GameObject.Find("World/RoomPilot/DayStartPosition").transform;
         sleepPodForPlayer = GameObject.Find("World/RoomPilot/SleepPodPlayer").transform;
-        music = transform.Find("Music").GetComponent<AudioSource>();
+        music1 = transform.Find("Music1").GetComponent<AudioSource>();
+        music2 = transform.Find("Music2").GetComponent<AudioSource>();
+        music3 = transform.Find("Music3").GetComponent<AudioSource>();
         tiktokSound = transform.Find("TicktokSound").GetComponent<AudioSource>();
+        alarmImage = GameObject.Find("Canvas/AlarmImage").transform;
+        alarmImage.gameObject.SetActive(false);
         cutscene1 = GameObject.Find("Canvas/Cutscene1").transform;
         cutscene1.gameObject.SetActive(false);
         cutscene2 = GameObject.Find("Canvas/Cutscene2").transform;
@@ -111,6 +117,18 @@ public class GameManager : MonoBehaviour
             ChangeDay(1);
         }
     }
+    public void StartCountdownEndSelfdestruct() {
+        StopCoroutine("CountdownEndSelfdesctuct");
+        StartCoroutine("CountdownEndSelfdesctuct");
+    }
+    private IEnumerator CountdownEndSelfdesctuct() {
+        yield return new WaitForSeconds(5f);
+        ChangeDay(3);
+    }
+    public static void SelfDestruct() {
+        playerIsDead = true; // do not call killplayer because that gives press R to restart
+        gameObjectManager.GetComponent<GameManager>().StartCountdownEndSelfdestruct();
+    }
     public static void PickupFlamethrower() {
         playerTrans.GetComponent<PlayerController>()._hasGun = true;
         playerGun.gameObject.SetActive(true);
@@ -141,13 +159,19 @@ public class GameManager : MonoBehaviour
         playerTrans.GetComponent<PlayerHealth>().ResetHealth();
         playerReviveEvent.Invoke();
     }
-    public void StartCountdownMusic() {
+    public void StartCountdownMusic(int newSong) {
         StopCoroutine("CountdownPlayMusic");
-        StartCoroutine("CountdownPlayMusic");
+        StartCoroutine("CountdownPlayMusic", newSong);
     }
-    private IEnumerator CountdownPlayMusic() {
+    private IEnumerator CountdownPlayMusic(int newSong) {
         yield return new WaitForSeconds(5f);
-        music.PlayWebGL();
+        if(newSong == 1) {
+            music1.PlayWebGL();
+        } else if (newSong == 2) {
+            music2.PlayWebGL();
+        } else if (newSong == 3) {
+            music3.PlayWebGL();
+        }
     }
     public static void ChangeDay(int newDay) {
         GameManager.playerTrans.GetComponent<Rigidbody>().position = dayStartTransform.position;
@@ -155,15 +179,20 @@ public class GameManager : MonoBehaviour
         GameManager.playerTrans.GetComponent<PlayerController>().CannotMoveCutscene();
         playerRespawn.position = playerTrans.position;
         if (newDay == 1) {
-            gameObjectManager.GetComponent<GameManager>().StartCountdownMusic();
+            gameObjectManager.GetComponent<GameManager>().StartCountdownMusic(1);
             currentDay = Day.day1;
             cutscene1.gameObject.SetActive(true);
+            alarmImage.gameObject.SetActive(false);
         } else if (newDay == 2) {
+            gameObjectManager.GetComponent<GameManager>().StartCountdownMusic(2);
             currentDay = Day.day2;
             cutscene2.gameObject.SetActive(true);
+            alarmImage.gameObject.SetActive(false);
         } else if (newDay == 3) {
+            gameObjectManager.GetComponent<GameManager>().StartCountdownMusic(3);
             currentDay = Day.day3;
             cutscene3.gameObject.SetActive(true);
+            alarmImage.gameObject.SetActive(true);
         }
         tiktokSound.PlayWebGL();
         sleepPodForPlayer.GetComponent<TriggerWait>().StartCoroutine(); // sets the colliders to none
