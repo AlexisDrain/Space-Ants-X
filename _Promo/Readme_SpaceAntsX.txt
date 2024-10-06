@@ -40,6 +40,8 @@ loy's gun bullet case in.wav https://freesound.org/people/martian/sounds/182261/
 - Computer dialogue (Internet Dialup SFX):  
 https://freesound.org/people/Jlew/sounds/16475/  
 
+- Ant, player damage:
+BFXR https://www.bfxr.net/
 
 === Font ===
 - Bebas by Dharma Type

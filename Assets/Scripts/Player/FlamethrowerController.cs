@@ -24,6 +24,12 @@ public class FlamethrowerController : MonoBehaviour
 
 
     private void Update() {
+        if (GameManager.playerIsDead == true) {
+            flamethrowerParticleSystem.Stop();
+            myAudioSource.StopWebGL();
+            _isFiring = false;
+            return;
+        }
         if (Input.GetButtonDown("Shoot")) {
             flamethrowerParticleSystem.Play();
             myAudioSource.PlayWebGL();
@@ -54,7 +60,14 @@ public class FlamethrowerController : MonoBehaviour
         Vector3 mousePosition = GameManager.GetMousePositionOnFloor(); // + new Vector3(0f, 1f, 0f);
         Vector3 direction = (mousePosition - GameManager.playerTrans.position).normalized;
 
-        if(currentShootCountdown > 0f) {
+
+        if (GameManager.playerIsDead == true) {
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, transform.position);
+            return;
+        }
+
+        if (currentShootCountdown > 0f) {
             currentShootCountdown -= Time.deltaTime;
         } else if (currentShootCountdown <= 0f && Input.GetButton("Shoot")) {
             currentShootCountdown = defaultShootCountdown;

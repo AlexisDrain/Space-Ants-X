@@ -139,7 +139,7 @@ TextureImporter:
         width: 20
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,6 +147,90 @@ TextureImporter:
       bones: []
       spriteID: 0a2e1fe232249f749a6c9f259508ac14
       internalID: 1874108399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ants_2
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 75
+        width: 39
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85100c5eece16ba45ac118e94ec816f5
+      internalID: -557863493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ants_3
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 76
+        width: 37
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b036096beb28be74686c5d3826e1a190
+      internalID: 243310941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ants_4
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 41
+        width: 39
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad1fea45c6048804894433627e16815f
+      internalID: -2111847935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ants_5
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 42
+        width: 37
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52fc6b71f3b48e548b69d5c1437b7e6a
+      internalID: -295931310
       vertices: []
       indices: 
       edges: []
@@ -164,6 +248,10 @@ TextureImporter:
     nameFileIdTable:
       ants_0: 1373770838
       ants_1: 1874108399
+      ants_2: -557863493
+      ants_3: 243310941
+      ants_4: -2111847935
+      ants_5: -295931310
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public bool cheats = true;
     public static bool hasStartedGame = false;
+    public static bool playerIsDead = false;
+    public static float currentSelfDestructionTimer = 130f;
 
     public static Day currentDay = Day.day1;
     public static int neededToKillCounter;
@@ -23,7 +25,9 @@ public class GameManager : MonoBehaviour
     public static GameObject gameObjectManager;
     public static Pool pool_LoudAudioSource;
     public static Pool pool_flamethrowerBullets;
+    public static Pool pool_antBullets;
     public static Pool pool_antDeadbodies;
+    public static Pool pool_antBigDeadbodies;
     public static Transform playerRespawn;
     public static Transform playerTrans;
     public static Transform playerGun;
@@ -35,6 +39,7 @@ public class GameManager : MonoBehaviour
     public static Transform cutscene1;
     public static Transform cutscene2;
     public static Transform cutscene3;
+    public static Transform pressRText;
 
     public static UnityEvent playerReviveEvent = new UnityEvent();
     public static UnityEvent changeDayEvent = new UnityEvent();
@@ -46,7 +51,9 @@ public class GameManager : MonoBehaviour
         gameObjectManager = gameObject;
         pool_LoudAudioSource = transform.Find("Pool_LoudAudioSource").GetComponent<Pool>();
         pool_flamethrowerBullets = transform.Find("Pool_FlamethrowerBullets").GetComponent<Pool>();
+        pool_antBullets = transform.Find("Pool_AntBullets").GetComponent<Pool>();
         pool_antDeadbodies = transform.Find("Pool_AntDeadbodies").GetComponent<Pool>();
+        pool_antBigDeadbodies = transform.Find("Pool_AntBigDeadbodies").GetComponent<Pool>();
         playerRespawn = GameObject.Find("PlayerRespawn").transform;
         playerTrans = GameObject.Find("Player").transform;
         playerGun = GameObject.Find("Player/Gun").transform;
@@ -61,6 +68,8 @@ public class GameManager : MonoBehaviour
         cutscene2.gameObject.SetActive(false);
         cutscene3 = GameObject.Find("Canvas/Cutscene3").transform;
         cutscene3.gameObject.SetActive(false);
+        pressRText = GameObject.Find("Canvas/PressR").transform;
+        pressRText.gameObject.SetActive(false);
     }
     private void Start() {
         Cursor.visible = false;
@@ -68,16 +77,29 @@ public class GameManager : MonoBehaviour
         playerGun.gameObject.SetActive(false);
         hasStartedGame = false;
     }
+    public void FixedUpdate() {
+        if(currentDay == Day.day3) {
+            currentSelfDestructionTimer -= Time.deltaTime;
+        }
+    }
     public void Update() {
-        if(cheats == true) {
+        if(playerIsDead == true) {
             if (Input.GetButtonDown("Respawn")) {
                 RevivePlayer();
             }
+        }
+        if(cheats == true) {
+            //if (Input.GetButtonDown("Respawn")) {
+            //    RevivePlayer();
+            //}
             if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha2)) {
                 ChangeDay(2);
             }
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha3)) {
                 ChangeDay(3);
+            }
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha4)) {
+                PickupFlamethrower();
             }
         }
     }
@@ -85,7 +107,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         if(hasStartedGame == false) {
             hasStartedGame = true;
-            ChangeRoom();
+            // ChangeRoom();
             ChangeDay(1);
         }
     }
@@ -97,10 +119,26 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         playerRespawn.position = playerTrans.position;
         playerChangeRoomEvent.Invoke();
+
+        if(hasStartedGame) {
+            if(currentDay == Day.day1 && neededToKillCounter <= 0f) {
+                ChangeDay(2);
+            } else if (currentDay == Day.day2 && neededToKillCounter <= 0f) {
+                ChangeDay(3);
+            }
+        }
+    }
+    public static void KillPlayer() {
+        playerIsDead = true;
+        pressRText.gameObject.SetActive(true);
     }
     public static void RevivePlayer() {
         print("revive player");
+        pressRText.gameObject.SetActive (false);
+        playerIsDead = false;
+        playerTrans.GetComponent<Rigidbody>().position = playerRespawn.position;
         playerTrans.position = playerRespawn.position;
+        playerTrans.GetComponent<PlayerHealth>().ResetHealth();
         playerReviveEvent.Invoke();
     }
     public void StartCountdownMusic() {
@@ -130,6 +168,7 @@ public class GameManager : MonoBehaviour
         tiktokSound.PlayWebGL();
         sleepPodForPlayer.GetComponent<TriggerWait>().StartCoroutine(); // sets the colliders to none
         sleepPodForPlayer.GetComponent<Animator>().SetTrigger("Open");
+        neededToKillCounter = 0;
         changeDayEvent.Invoke();
     }
     public static void UpdateKillCount(int newValue) {
