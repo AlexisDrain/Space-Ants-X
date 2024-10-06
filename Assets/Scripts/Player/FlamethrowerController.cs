@@ -12,6 +12,8 @@ public class FlamethrowerController : MonoBehaviour
     public LineRenderer lineRenderer;
     public ParticleSystem flamethrowerParticleSystem;
 
+    [Header("Read only")]
+    public bool _isFiring = false;
     private float currentShootCountdown;
     private AudioSource myAudioSource;
     // Start is called before the first frame update
@@ -25,11 +27,13 @@ public class FlamethrowerController : MonoBehaviour
         if (Input.GetButtonDown("Shoot")) {
             flamethrowerParticleSystem.Play();
             myAudioSource.PlayWebGL();
+            _isFiring = true;
         }
         if (Input.GetButtonUp("Shoot")) {
             flamethrowerParticleSystem.Stop();
             myAudioSource.StopWebGL();
             GameManager.SpawnLoudAudio(clip_stopFlamethrower);
+            _isFiring = false;
         }
     }
     void SpawnBullets() {
