@@ -13,6 +13,8 @@ public class TypeDialogue : MonoBehaviour
     public string shipDialogue2;
     [TextArea(3, 10)]
     public string shipDialogue3;
+    [TextArea(3, 10)]
+    public string dialogueEnding;
 
     private string targetText;
     public TextMeshProUGUI myTextUI;
@@ -30,6 +32,8 @@ public class TypeDialogue : MonoBehaviour
             targetText = shipDialogue2;
         } else if (textId == 3) {
             targetText = shipDialogue3;
+        } else if (textId == 4) {
+            targetText = dialogueEnding;
         }
         StopAllCoroutines();
         StartCoroutine(TypeText(targetText));
