@@ -22,7 +22,12 @@ public class GameManager : MonoBehaviour
     public static Transform playerGun;
     public static Transform cameraDolly;
     public static Transform dayStartTransform;
+    public static Transform sleepPodForPlayer;
     public static AudioSource music;
+    public static AudioSource tiktokSound;
+    public static Transform cutscene1;
+    public static Transform cutscene2;
+    public static Transform cutscene3;
 
     public static UnityEvent playerReviveEvent = new UnityEvent();
     public static UnityEvent changeDayEvent = new UnityEvent();
@@ -40,14 +45,19 @@ public class GameManager : MonoBehaviour
         playerGun = GameObject.Find("Player/Gun").transform;
         cameraDolly = GameObject.Find("CameraDolly").transform;
         dayStartTransform = GameObject.Find("World/RoomPilot/DayStartPosition").transform;
+        sleepPodForPlayer = GameObject.Find("World/RoomPilot/SleepPodPlayer").transform;
         music = transform.Find("Music").GetComponent<AudioSource>();
-
+        tiktokSound = transform.Find("TicktokSound").GetComponent<AudioSource>();
+        cutscene1 = GameObject.Find("Canvas/Cutscene1").transform;
+        cutscene1.gameObject.SetActive(false);
+        cutscene2 = GameObject.Find("Canvas/Cutscene2").transform;
+        cutscene2.gameObject.SetActive(false);
+        cutscene3 = GameObject.Find("Canvas/Cutscene3").transform;
+        cutscene3.gameObject.SetActive(false);
     }
     private void Start() {
         Time.timeScale = 0f;
         playerGun.gameObject.SetActive(false);
-        ChangeRoom();
-        ChangeDay(1);
     }
     public void Update() {
         if (Input.GetButtonDown("Respawn")) {
@@ -64,6 +74,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         if(music.isPlaying == false) {
             music.PlayWebGL();
+            ChangeRoom();
+            ChangeDay(1);
         }
     }
     public static void PickupFlamethrower() {
@@ -81,13 +93,20 @@ public class GameManager : MonoBehaviour
     public static void ChangeDay(int newDay) {
         GameManager.playerTrans.GetComponent<Rigidbody>().position = dayStartTransform.position;
         GameManager.playerTrans.position = dayStartTransform.position;
+        GameManager.playerTrans.GetComponent<PlayerController>().CannotMoveCutscene();
         if (newDay == 1) {
             currentDay = Day.day1;
+            cutscene1.gameObject.SetActive(true);
         } else if (newDay == 2) {
             currentDay = Day.day2;
+            cutscene2.gameObject.SetActive(true);
         } else if (newDay == 3) {
             currentDay = Day.day3;
+            cutscene3.gameObject.SetActive(true);
         }
+        tiktokSound.PlayWebGL();
+        sleepPodForPlayer.GetComponent<TriggerWait>().StartCoroutine(); // sets the colliders to none
+        sleepPodForPlayer.GetComponent<Animator>().SetTrigger("Open");
         changeDayEvent.Invoke();
     }
     public static void UpdateKillCount(int newValue) {
@@ -118,5 +137,8 @@ public class GameManager : MonoBehaviour
         audioObject.PlayWebGL(newAudioClip, newVolume);
         return audioObject;
         // audio object will set itself to inactive after done playing.
+    }
+    public void PrintMessage(string message) {
+        print(message);
     }
 }

@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
+    public float defaultTimePlayerCanMove = 5f;
+    private float currentTimePlayerCanMove = 5f;
+
     public RuntimeAnimatorController lookDown;
     public RuntimeAnimatorController lookUp;
     public SpriteRenderer mySprite;
     public Transform gunTransform;
     public float moveForce;
+    public bool _canMove = false;
 
     private Rigidbody myRigidbody;
     private Animator myAnimator;
@@ -17,10 +20,23 @@ public class PlayerController : MonoBehaviour
         myRigidbody = GetComponent<Rigidbody>();
         myAnimator = GetComponent<Animator>();
     }
-
+    public void CannotMoveCutscene() {
+        _canMove = false;
+        currentTimePlayerCanMove = defaultTimePlayerCanMove;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(_canMove == false) {
+            if (currentTimePlayerCanMove >= 0f) {
+                currentTimePlayerCanMove -= Time.deltaTime;
+            }
+            if (currentTimePlayerCanMove < 0f) {
+                currentTimePlayerCanMove = defaultTimePlayerCanMove;
+                _canMove = true;
+            }
+            return;
+        }
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
