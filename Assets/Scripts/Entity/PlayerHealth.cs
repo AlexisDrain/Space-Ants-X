@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviour {
     void Awake()
     {
 
+        GameManager.playerChangeRoomEvent.AddListener(ResetHealth);
         _currentHealth = defaultHealth;
     }
     public void ResetHealth() {

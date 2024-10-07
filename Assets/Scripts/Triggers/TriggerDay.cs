@@ -38,10 +38,13 @@ public class TriggerDay : MonoBehaviour
         }
         currentDay.SetActive(true);
 
+
+        /*
         for (int i = 0; i < currentDay.transform.childCount; i++) {
             if (currentDay.transform.GetChild(i).GetComponent<EntityHealth>()) {
                 currentDay.transform.GetChild(i).GetComponent<EntityHealth>().countAnt();
             }
         }
+        */
     }
 }

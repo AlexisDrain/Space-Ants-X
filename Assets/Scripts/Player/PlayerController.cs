@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
         _canMove = false;
         currentTimePlayerCanMove = defaultTimePlayerCanMove;
     }
-    // Update is called once per frame
+
     void FixedUpdate()
     {
         if(GameManager.playerIsDead == true) {

@@ -34,6 +34,11 @@ public class BulletController : MonoBehaviour
         myRigidbody.velocity = direction * speed;
     }
     public void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("Missile")) {
+            if (hurtPlayer == false) {
+                other.GetComponent<MissileHealth>().AddDamage(1); // only counts damage by flames. Not ant bullets
+            }
+        }
         if(other.CompareTag("Ant")) {
             if(hurtPlayer == false) {
                 other.GetComponent<EntityHealth>().AddDamage(1);

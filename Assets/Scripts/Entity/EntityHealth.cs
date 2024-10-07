@@ -26,7 +26,8 @@ public class EntityHealth : MonoBehaviour {
         GameManager.playerChangeRoomEvent.AddListener(ChangeRoom);
         GameManager.playerChangeRoomEvent.AddListener(EnableIfInCameraCoords);
     }
-    public void countAnt() {
+    public void CountAnt() {
+        print("we do not count ant anymore. the daily needed to kill numbers are hard-coded into GameManager");
         GameManager.UpdateKillCount(1);
     }
     public void AddDamage(int damage=1) {
@@ -37,7 +38,10 @@ public class EntityHealth : MonoBehaviour {
                 return;
             }
 
-            GameManager.UpdateKillCount(-1);
+            if(GameManager.currentDay == Day.day1 || GameManager.currentDay == Day.day2) {
+                GameManager.UpdateKillCount(-1);
+            }
+
             GameObject deadbody;
             if(bigAntDeadbody == true) {
                 deadbody = GameManager.pool_antBigDeadbodies.Spawn(transform.position); // GameObject.Instantiate(deadBody, transform.position, Quaternion.identity);
