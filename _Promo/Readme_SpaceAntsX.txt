@@ -47,13 +47,16 @@ loy's gun bullet case in.wav https://freesound.org/people/martian/sounds/182261/
 - Computer dialogue (Internet Dialup SFX):    
 https://freesound.org/people/Jlew/sounds/16475/    
 
-- Player pod open
+- Clock ticking (time progress):
+Sonniss 2023 - Game Audio Bundle \ InspectorJ - Essentials 02 Clocks\CLOCKTick_InsJ_Clock-03_Ticking_Multi_LOOP.wav
+
+- Player pod open & final shuttle door
 Sonniss.com 2017 - Game Audio Bundle\SoundMorph - Portals\Door - Sci-Fi - 04.wav
 
 - Self-destruct alarm:  
 Sonnis 2016 - Game Audio Bundle\SoundBits - Computer Sound FX 2.0\CSFX-2_Alarms_09.wav  
   
-- Ant, player damage:  
+- Ant & player damage:  
 BFXR https://www.bfxr.net/  
   
 - Ladder climb:  
