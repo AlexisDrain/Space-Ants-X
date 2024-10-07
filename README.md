@@ -3,6 +3,11 @@ Ludum Dare 56 game - Theme: Tiny Creatures
 
 Fry enemies in this cathartic action game!
 
+Play on Itch.io: https://alexclay.itch.io/space-ants-x  
+Play on Newgrounds: https://www.newgrounds.com/portal/view/project/6100763
+
+Ludum Dare 56 Jam Page: https://ldjam.com/events/ludum-dare/56/space-ants-x​​  
+
 Controls:  
 - Press P or Esc to pause.  
 - Use WASD / Arrow keys to Move.  
