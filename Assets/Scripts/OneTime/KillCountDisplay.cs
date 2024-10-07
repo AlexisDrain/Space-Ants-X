@@ -21,7 +21,12 @@ public class KillCountDisplay : MonoBehaviour
 
         if (GameManager.currentDay == Day.day1 || GameManager.currentDay == Day.day2) {
            m_TextMeshPro.text = GameManager.neededToKillCounter.ToString();
+           m_TextMeshPro.color = Color.red;
+        } else if(GameManager.currentDay == Day.day3) {
+
+            m_TextMeshPro.color = Color.white;
         }
+
     }
     private IEnumerator DelayDisplayNum() {
         yield return new WaitForSeconds(0.5f);
@@ -29,6 +34,9 @@ public class KillCountDisplay : MonoBehaviour
     }
     private void LateUpdate() {
         if(GameManager.currentDay == Day.day3) {
+            if(m_TextMeshPro.color != Color.white) {
+                m_TextMeshPro.color = Color.white;
+            }
             m_TextMeshPro.text = Mathf.Clamp(Mathf.Floor(GameManager.currentSelfDestructionTimer),0, 99999f).ToString();
         }
     }

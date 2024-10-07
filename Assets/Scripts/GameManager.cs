@@ -14,7 +14,12 @@ public class GameManager : MonoBehaviour
     public bool cheats = true;
     public static bool hasStartedGame = false;
     public static bool playerIsDead = false;
-    
+
+    public static bool reduceMusicVolumeHotlineMiami = false;
+    public static float defaultMusic1Volume = 0.4f;
+    public static float defaultMusic2Volume = 0.4f;
+    public static float defaultMusic3Volume = 0.4f;
+
     // self destructing
     public static bool isSelfDestructing = false;
     public static float defaultSelfDestructionTimer = 140f;
@@ -23,7 +28,7 @@ public class GameManager : MonoBehaviour
     public static Day currentDay = Day.day1;
     public static int neededToKillCounter;
     public static int defaultNeededToKill1 = 55;
-    public static int defaultNeededToKill2 = 130;
+    public static int defaultNeededToKill2 = 126;
     public static Vector2 cameraBounds = new Vector3(40, 32);
     public static Vector2 cameraCoords = new Vector3(1, 0); // changed in cameraCoords
 
@@ -89,12 +94,20 @@ public class GameManager : MonoBehaviour
         pressRText.gameObject.SetActive(false);
     }
     private void Start() {
+        defaultMusic1Volume = music1.volume;
+        defaultMusic2Volume = music2.volume;
+        defaultMusic3Volume = music3.volume;
         Cursor.visible = false;
         Time.timeScale = 0f;
         playerGun.gameObject.SetActive(false);
         hasStartedGame = false;
     }
     public void FixedUpdate() {
+        if(reduceMusicVolumeHotlineMiami == true) {
+            music1.volume = Mathf.Lerp(music1.volume, 0f, 0.02f);
+            music2.volume = Mathf.Lerp(music2.volume, 0f, 0.02f);
+            music3.volume = Mathf.Lerp(music3.volume, 0f, 0.02f);
+        }
         if(currentDay == Day.day3) {
             if(currentSelfDestructionTimer >= 0) {
                 currentSelfDestructionTimer -= Time.deltaTime;
@@ -171,7 +184,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine("CountdownEndSelfdesctuct");
     }
     private IEnumerator CountdownEndSelfdesctuct() {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(6.5f);
         isSelfDestructing = false;
         currentSelfDestructionTimer = defaultSelfDestructionTimer;
         RevivePlayer();
@@ -229,7 +242,11 @@ public class GameManager : MonoBehaviour
         music2.StopWebGL();
         music3.StopWebGL();
         yield return new WaitForSeconds(5f);
-        if(newSong == 1) {
+        reduceMusicVolumeHotlineMiami = false;
+        music1.volume = defaultMusic1Volume;
+        music2.volume = defaultMusic2Volume;
+        music3.volume = defaultMusic3Volume;
+        if (newSong == 1) {
             music1.PlayWebGL();
         } else if (newSong == 2) {
             music2.PlayWebGL();
@@ -270,6 +287,9 @@ public class GameManager : MonoBehaviour
     public static void UpdateKillCount(int newValue) {
         neededToKillCounter += newValue;
         changeKillCountEvent.Invoke();
+        if(neededToKillCounter <= 0) {
+            reduceMusicVolumeHotlineMiami = true;
+        }
     }
     public static Vector3 GetMousePositionOnFloor() {
         // Create a ray from the mouse position
