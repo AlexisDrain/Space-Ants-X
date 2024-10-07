@@ -160,7 +160,7 @@ TextureImporter:
         width: 39
         height: 29
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,7 +181,7 @@ TextureImporter:
         width: 37
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -202,7 +202,7 @@ TextureImporter:
         width: 39
         height: 29
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -223,7 +223,7 @@ TextureImporter:
         width: 37
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -231,6 +231,27 @@ TextureImporter:
       bones: []
       spriteID: 52fc6b71f3b48e548b69d5c1437b7e6a
       internalID: -295931310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ants_6
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 11
+        width: 37
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b54e361ddced3344f948329865fa7914
+      internalID: -1377701529
       vertices: []
       indices: 
       edges: []
@@ -252,6 +273,7 @@ TextureImporter:
       ants_3: 243310941
       ants_4: -2111847935
       ants_5: -295931310
+      ants_6: -1377701529
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

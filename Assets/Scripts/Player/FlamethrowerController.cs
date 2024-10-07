@@ -6,6 +6,7 @@ public class FlamethrowerController : MonoBehaviour
 {
 
     // public Transform crosshairTransform;
+    public float flamethrowerPlayerPushForce = 10f;
     public float defaultShootCountdown = 0.2f;
     public AudioClip clip_stopFlamethrower;
 
@@ -16,15 +17,20 @@ public class FlamethrowerController : MonoBehaviour
     public bool _isFiring = false;
     private float currentShootCountdown;
     private AudioSource myAudioSource;
+    private PlayerController playerController;
+    private Rigidbody playerRigidbody;
     // Start is called before the first frame update
     void Start()
     {
         myAudioSource = GetComponent<AudioSource>();
+        playerController = GameManager.playerTrans.GetComponent<PlayerController>();
+        playerRigidbody = GameManager.playerTrans.GetComponent<Rigidbody>();
     }
 
 
     private void Update() {
-        if (GameManager.playerIsDead == true) {
+        if (GameManager.playerIsDead == true || GameManager.menus.activeSelf
+            || GameManager.endGame == true || playerController._canMove == false) {
             flamethrowerParticleSystem.Stop();
             myAudioSource.StopWebGL();
             _isFiring = false;
@@ -61,10 +67,15 @@ public class FlamethrowerController : MonoBehaviour
         Vector3 direction = (mousePosition - GameManager.playerTrans.position).normalized;
 
 
-        if (GameManager.playerIsDead == true) {
+        if (GameManager.playerIsDead == true || GameManager.menus.activeSelf
+            || GameManager.endGame == true || playerController._canMove == false) {
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, transform.position);
             return;
+        }
+
+        if(Input.GetButton("Shoot")) {
+            playerRigidbody.AddForce(-direction * flamethrowerPlayerPushForce, ForceMode.Force);
         }
 
         if (currentShootCountdown > 0f) {

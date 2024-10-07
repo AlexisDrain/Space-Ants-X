@@ -20,7 +20,7 @@ public class KillCountDisplay : MonoBehaviour
     {
 
         if (GameManager.currentDay == Day.day1 || GameManager.currentDay == Day.day2) {
-           m_TextMeshPro.text = GameManager.neededToKillCounter.ToString();
+           m_TextMeshPro.text = Mathf.Clamp(GameManager.neededToKillCounter, 0, 999).ToString();
            m_TextMeshPro.color = Color.red;
         } else if(GameManager.currentDay == Day.day3) {
 

@@ -16,6 +16,7 @@ public class TypeDialogue : MonoBehaviour
     [TextArea(3, 10)]
     public string dialogueEnding;
 
+    public bool endingDialogue = false;
     private string targetText;
     public TextMeshProUGUI myTextUI;
     // Start is called before the first frame update
@@ -44,11 +45,17 @@ public class TypeDialogue : MonoBehaviour
     private IEnumerator TypeText(string newDialogue)
     {
         for (int i = 0; i < newDialogue.Length; i++) {
-            yield return new WaitForSeconds(0.01f);
+            if(endingDialogue) { // slower
+                yield return new WaitForSeconds(0.08f);
+            } else {
+                yield return new WaitForSeconds(0.01f);
+            }
             myTextUI.text += newDialogue[i];
         }
         // deactivate self after 6 seconds
         yield return new WaitForSeconds(6f);
-        gameObject.SetActive(false);
+        if (endingDialogue == false) {
+            gameObject.SetActive(false);
+        }
     }
 }

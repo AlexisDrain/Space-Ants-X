@@ -5,9 +5,9 @@ Fry enemies in this cathartic action game!
 Fry enemies in this cathartic action game!
 
 Controls:  
+- Press P or Esc to pause.  
 - Use WASD / Arrow keys to Move.  
 - Use mouse to aim and Left mouse click to fire flamethrower.  
-- Press P or Esc to pause.  
 
 Notes:  
 - Performance is better on Chrome than Firefox.  

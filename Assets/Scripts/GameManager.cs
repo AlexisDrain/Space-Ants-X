@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public enum Day {
     day1,
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     public bool cheats = true;
     public static bool hasStartedGame = false;
     public static bool playerIsDead = false;
+    public static bool endGame = false;
 
     public static bool reduceMusicVolumeHotlineMiami = false;
     public static float defaultMusic1Volume = 0.4f;
@@ -49,8 +51,10 @@ public class GameManager : MonoBehaviour
     public static AudioSource music3;
     public static AudioSource tiktokSound;
     public static GameObject menus;
+    public static GameObject ending;
     public static Transform alarmImage;
     public static Transform selfDestructImage;
+    public static Transform dialogue;
     public static Transform cutscene1;
     public static Transform cutscene2;
     public static Transform cutscene3;
@@ -79,11 +83,15 @@ public class GameManager : MonoBehaviour
         music2 = transform.Find("Music2").GetComponent<AudioSource>();
         music3 = transform.Find("Music3").GetComponent<AudioSource>();
         menus = GameObject.Find("Canvas/Menus");
+        ending = GameObject.Find("Canvas/Ending");
+        ending.SetActive(false);
         tiktokSound = transform.Find("TicktokSound").GetComponent<AudioSource>();
         alarmImage = GameObject.Find("Canvas/AlarmImage").transform;
         alarmImage.gameObject.SetActive(false);
         selfDestructImage = GameObject.Find("Canvas/SelfDestructImage").transform;
         selfDestructImage.gameObject.SetActive(false);
+        dialogue = GameObject.Find("Canvas/Dialogue").transform;
+        dialogue.gameObject.SetActive(false);
         cutscene1 = GameObject.Find("Canvas/Cutscene1").transform;
         cutscene1.gameObject.SetActive(false);
         cutscene2 = GameObject.Find("Canvas/Cutscene2").transform;
@@ -104,9 +112,9 @@ public class GameManager : MonoBehaviour
     }
     public void FixedUpdate() {
         if(reduceMusicVolumeHotlineMiami == true) {
-            music1.volume = Mathf.Lerp(music1.volume, 0f, 0.02f);
-            music2.volume = Mathf.Lerp(music2.volume, 0f, 0.02f);
-            music3.volume = Mathf.Lerp(music3.volume, 0f, 0.02f);
+            music1.volume = Mathf.Lerp(music1.volume, 0f, 0.025f);
+            music2.volume = Mathf.Lerp(music2.volume, 0f, 0.025f);
+            music3.volume = Mathf.Lerp(music3.volume, 0f, 0.025f);
         }
         if(currentDay == Day.day3) {
             if(currentSelfDestructionTimer >= 0) {
@@ -118,7 +126,19 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public static void StartEnding() {
+        endGame = true;
+        ending.SetActive(true);
+        playerTrans.GetComponent<PlayerController>().CannotMoveEnding();
+        Time.timeScale = 1f;
+    }
     public static void SetMenuState(bool newState) {
+        if(endGame) {
+            menus.SetActive(false);
+            Time.timeScale = 1f;
+            return;
+        }
+
         if(newState == true) {
             menus.SetActive(true);
             Time.timeScale = 0f;
@@ -140,9 +160,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
+
         if (Input.GetKey(KeyCode.C) && Input.GetKeyDown(KeyCode.Alpha1)) {
             print("Cheat: enable cheats");
-            cheats = true;
+            // cheats = true;
         }
         if (cheats == true) {
             //if (Input.GetButtonDown("Respawn")) {
@@ -193,7 +214,8 @@ public class GameManager : MonoBehaviour
     public static void MissileDestruct() {
         selfDestructImage.gameObject.SetActive(true);
         selfDestructImage.GetComponent<Animator>().SetTrigger("MissileDestruct");
-        KillPlayer();
+        // KillPlayer();
+        GameManager.playerTrans.GetComponent<PlayerHealth>().AddDamage(999);
         // gameObjectManager.GetComponent<GameManager>().StartCountdownEndSelfdestruct();
         // selfDestructImage.gameObject.SetActive(true);
     }
@@ -282,6 +304,8 @@ public class GameManager : MonoBehaviour
         tiktokSound.PlayWebGL();
         sleepPodForPlayer.GetComponent<TriggerWait>().StartCoroutine(); // sets the colliders to none
         sleepPodForPlayer.GetComponent<Animator>().SetTrigger("Open");
+
+        changeKillCountEvent.Invoke();
         changeDayEvent.Invoke();
     }
     public static void UpdateKillCount(int newValue) {
@@ -290,6 +314,9 @@ public class GameManager : MonoBehaviour
         if(neededToKillCounter <= 0) {
             reduceMusicVolumeHotlineMiami = true;
         }
+    }
+    public static void RestartGameScene() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public static Vector3 GetMousePositionOnFloor() {
         // Create a ray from the mouse position

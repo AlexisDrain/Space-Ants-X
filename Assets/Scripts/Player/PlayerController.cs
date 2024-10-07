@@ -26,6 +26,10 @@ public class PlayerController : MonoBehaviour {
         _canMove = false;
         currentTimePlayerCanMove = defaultTimePlayerCanMove;
     }
+    public void CannotMoveEnding() {
+        _canMove = false;
+        currentTimePlayerCanMove = 9999f;
+    }
 
     void FixedUpdate()
     {
@@ -44,14 +48,18 @@ public class PlayerController : MonoBehaviour {
         }
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
+        Vector3 inputVector = new Vector3(h, 0f, v).normalized;
+        myRigidbody.AddForce(inputVector * moveForce, ForceMode.Force);
 
-        if(h != 0) {
+        /*
+        if (h != 0) {
             myRigidbody.AddForce(h * moveForce * new Vector3(1f, 0f, 0f), ForceMode.Force);
         }
         if (v != 0) {
             myRigidbody.AddForce(v * moveForce * new Vector3(0f, 0f, 1f), ForceMode.Force);
         }
-        if(myRigidbody.velocity.magnitude > 3f) {
+        */
+        if (myRigidbody.velocity.magnitude > 3f) {
             GetComponent<Animator>().SetBool("isMoving", true);
         } else {
             GetComponent<Animator>().SetBool("isMoving", false);
