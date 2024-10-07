@@ -41,7 +41,10 @@ loy's gun bullet case in.wav https://freesound.org/people/martian/sounds/182261/
   
 - Computer dialogue (Internet Dialup SFX):    
 https://freesound.org/people/Jlew/sounds/16475/    
-  
+
+- Player pod open
+Sonniss.com 2017 - Game Audio Bundle\SoundMorph - Portals\Door - Sci-Fi - 04.wav
+
 - Self-destruct alarm:  
 Sonnis 2016 - Game Audio Bundle\SoundBits - Computer Sound FX 2.0\CSFX-2_Alarms_09.wav  
   
