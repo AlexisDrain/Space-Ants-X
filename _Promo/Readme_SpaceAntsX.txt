@@ -1,13 +1,9 @@
-[Short Description]  
-TODO: Shoot, dash, and defy gravity! 2.5D platformer.  
+[Short Description]
+Fry enemies in this cathartic action game!
 
-[Long Description]  
-TODO: Shoot, dash, and defy gravity! 2.5D platformer.  
+[Long Description]
+Fry enemies in this cathartic action game!
 
-Full credits + Source code:  
-https://github.com/AlexisDrain/Space-Ants-X  
-
-TODO:  
 Controls:  
 - Use WASD / Arrow keys to Move.  
 - Use mouse to aim and Left mouse click to fire flamethrower.  
@@ -16,6 +12,9 @@ Controls:
 Notes:  
 - Performance is better on Chrome than Firefox.  
 - Performance is better with fullscreen disabled.  
+
+Full credits + Source code:  
+https://github.com/AlexisDrain/Space-Ants-X  
 
 -----------------------
 

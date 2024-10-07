@@ -29,7 +29,7 @@ public class KillCountDisplay : MonoBehaviour
     }
     private void LateUpdate() {
         if(GameManager.currentDay == Day.day3) {
-            m_TextMeshPro.text = Mathf.Floor(GameManager.currentSelfDestructionTimer).ToString();
+            m_TextMeshPro.text = Mathf.Clamp(Mathf.Floor(GameManager.currentSelfDestructionTimer),0, 99999f).ToString();
         }
     }
 }

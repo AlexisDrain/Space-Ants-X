@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     public bool cheats = true;
     public static bool hasStartedGame = false;
     public static bool playerIsDead = false;
+    
+    // self destructing
+    public static bool isSelfDestructing = false;
+    public static float defaultSelfDestructionTimer = 140f;
     public static float currentSelfDestructionTimer = 140f;
 
     public static Day currentDay = Day.day1;
@@ -92,7 +96,13 @@ public class GameManager : MonoBehaviour
     }
     public void FixedUpdate() {
         if(currentDay == Day.day3) {
-            currentSelfDestructionTimer -= Time.deltaTime;
+            if(currentSelfDestructionTimer >= 0) {
+                currentSelfDestructionTimer -= Time.deltaTime;
+            }
+            else if(currentSelfDestructionTimer <= 0 && isSelfDestructing == false) {
+                isSelfDestructing = true;
+                SelfDestruct();
+            }
         }
     }
     public static void SetMenuState(bool newState) {
@@ -109,25 +119,41 @@ public class GameManager : MonoBehaviour
             Cursor.visible = false;
         }
         if(Input.GetButtonDown("Pause") && hasStartedGame == true) {
-            SetMenuState(true);
+            SetMenuState(!menus.activeSelf); // toggle. based on if menus is open
         }
         if(playerIsDead == true) {
             if (Input.GetButtonDown("Respawn")) {
                 RevivePlayer();
             }
         }
-        if(cheats == true) {
+
+        if (Input.GetKey(KeyCode.C) && Input.GetKeyDown(KeyCode.Alpha1)) {
+            print("Cheat: enable cheats");
+            cheats = true;
+        }
+        if (cheats == true) {
             //if (Input.GetButtonDown("Respawn")) {
             //    RevivePlayer();
             //}
-            if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha2)) {
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha1)) {
+                print("Cheat: go to day 1");
+                ChangeDay(1);
+            }
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha2)) {
+                print("Cheat: go to day 2");
                 ChangeDay(2);
             }
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha3)) {
+                print("Cheat: go to day 3");
                 ChangeDay(3);
             }
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha4)) {
+                print("Cheat: pick up flamethrower");
                 PickupFlamethrower();
+            }
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha5)) {
+                print("Cheat: speed up explosion");
+                currentSelfDestructionTimer = 5f;
             }
         }
     }
@@ -146,6 +172,9 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator CountdownEndSelfdesctuct() {
         yield return new WaitForSeconds(5f);
+        isSelfDestructing = false;
+        currentSelfDestructionTimer = defaultSelfDestructionTimer;
+        RevivePlayer();
         ChangeDay(3);
     }
     public static void MissileDestruct() {
@@ -213,6 +242,7 @@ public class GameManager : MonoBehaviour
         GameManager.playerTrans.position = dayStartTransform.position;
         GameManager.playerTrans.GetComponent<PlayerController>().CannotMoveCutscene();
         playerRespawn.position = playerTrans.position;
+
         // neededToKillCounter = 0;
         if (newDay == 1) {
             neededToKillCounter = defaultNeededToKill1;
