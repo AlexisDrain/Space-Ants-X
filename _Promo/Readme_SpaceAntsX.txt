@@ -15,11 +15,17 @@ Notes:
 Full credits + Source code:  
 https://github.com/AlexisDrain/Space-Ants-X  
 
+Ludum Dare 56 Jam Page: 
+https://ldjam.com/events/ludum-dare/56/space-ants-x​​  
+
 -----------------------
 
 Full credits + Source code  
 https://github.com/AlexisDrain/Space-Ants-X    
   
+Ludum Dare 56 Jam Page: 
+https://ldjam.com/events/ludum-dare/56/space-ants-x​​  
+
 === Credits ===  
 A game by Alexis Clay  
 https://alexclay.itch.io/  
