@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public static Day currentDay = Day.day1;
     public static int neededToKillCounter;
     public static int defaultNeededToKill1 = 55;
-    public static int defaultNeededToKill2 = 126;
+    public static int defaultNeededToKill2 = 127;
     public static Vector2 cameraBounds = new Vector3(40, 32);
     public static Vector2 cameraCoords = new Vector3(1, 0); // changed in cameraCoords
 
@@ -108,7 +108,11 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Time.timeScale = 0f;
         playerGun.gameObject.SetActive(false);
+        reduceMusicVolumeHotlineMiami = false;
         hasStartedGame = false;
+        endGame = false;
+        playerIsDead = false;
+        isSelfDestructing = false;
     }
     public void FixedUpdate() {
         if(reduceMusicVolumeHotlineMiami == true) {
