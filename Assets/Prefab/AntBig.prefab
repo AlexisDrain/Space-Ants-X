@@ -121,14 +121,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clipDeath:
-  - {fileID: 8300000, guid: 0e10451c62e673c4c989ccec89b1b21f, type: 3}
-  - {fileID: 8300000, guid: 5ea454d42f4cfa243911d78f8f567ab1, type: 3}
-  - {fileID: 8300000, guid: 26ad520f5ab1cee448ffa36c342db016, type: 3}
-  - {fileID: 8300000, guid: 28375063993022046b766d0def03d014, type: 3}
-  - {fileID: 8300000, guid: b880f9ba677c2da419d5372e44a66983, type: 3}
-  - {fileID: 8300000, guid: 1deace5fb9206b24a88cb9423e736346, type: 3}
-  - {fileID: 8300000, guid: 71ac88d8f5917fb44b44bcc12276f477, type: 3}
-  - {fileID: 8300000, guid: 01574a6071bdb7a479982658279e654d, type: 3}
+  - {fileID: 8300000, guid: 72d229d81dd70ef46b6223e94a4c1f4e, type: 3}
+  - {fileID: 8300000, guid: cfb9ca28f9bc06b4eb5046410b8bfdc1, type: 3}
+  - {fileID: 8300000, guid: d50cb74f96971b7408f1d140f6602de7, type: 3}
+  - {fileID: 8300000, guid: 0af7d1a513b9bd84195ae53811a10f2f, type: 3}
+  - {fileID: 8300000, guid: cb98e8cb85cee6a4eb3f4ee6fac5c719, type: 3}
+  - {fileID: 8300000, guid: 89349278db45950479b3ea446091798a, type: 3}
+  - {fileID: 8300000, guid: 342703241e13cc047a082e5e5c24caa2, type: 3}
+  - {fileID: 8300000, guid: 7fa899d32428a2e468dfe258c17b948f, type: 3}
+  clipHurt:
+  - {fileID: 8300000, guid: cb98e8cb85cee6a4eb3f4ee6fac5c719, type: 3}
   defaultHealth: 5
   bigAntDeadbody: 1
   _currentHealth: 3
@@ -200,7 +202,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.7
       inSlope: 0
       outSlope: 0
       tangentMode: 0

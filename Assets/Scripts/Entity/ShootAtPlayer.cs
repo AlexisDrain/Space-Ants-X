@@ -9,9 +9,9 @@ public class ShootAtPlayer : MonoBehaviour {
     public float defaultShootRandom = 1f;
     private float currentShootCountdown = 1f;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        
+        currentShootCountdown = defaultShootCountdown + Random.Range(0f, defaultShootRandom);
     }
 
     // Update is called once per frame
@@ -23,7 +23,13 @@ public class ShootAtPlayer : MonoBehaviour {
         } else if (currentShootCountdown <= 0f) {
             currentShootCountdown = defaultShootCountdown + Random.Range(0f, defaultShootRandom);
 
-            StartCoroutine("SpawnBullet");
+            RaycastHit hit;
+            Physics.Linecast(transform.position, GameManager.playerTrans.position, out hit);
+            if(hit.collider && hit.collider.CompareTag("Player") == false) { // no line of sight to player
+                return;
+            } else {
+                StartCoroutine("SpawnBullet");
+            }
         }
     }
     

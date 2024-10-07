@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EntityHealth : MonoBehaviour {
     public List<AudioClip> clipDeath;
+    public List<AudioClip> clipHurt;
     public int defaultHealth = 3;
     public bool bigAntDeadbody = false;
     // public bool doNotCountKill = false;
@@ -32,6 +33,12 @@ public class EntityHealth : MonoBehaviour {
     }
     public void AddDamage(int damage=1) {
         _currentHealth -= damage;
+        if(_currentHealth > 0) {
+            if(clipHurt.Count > 0) {
+                GetComponent<AudioSource>().clip = clipHurt[Random.Range(0, clipHurt.Count)];
+                GetComponent<AudioSource>().PlayWebGL();
+            }
+        }
         if(_currentHealth <= 0) {
             if(gameObject.CompareTag("Player")) {
                 GameManager.RevivePlayer();
