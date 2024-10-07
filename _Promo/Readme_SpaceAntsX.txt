@@ -10,7 +10,6 @@ Controls:
 - Use mouse to aim and Left mouse click to fire flamethrower.  
 
 Notes:  
-- Performance is better on Chrome than Firefox.  
 - Performance is better with fullscreen disabled.  
 
 Full credits + Source code:  
